@@ -5,7 +5,7 @@ import platform
 import time
 #variables 
 
-version = 1.0
+version = 1.1
 font = "standard"
 
 level = 1
@@ -145,23 +145,29 @@ def dungeon():
         enemy = enemies[2]
     else:
         enemy = enemies[3]
+    enemy_health_points = enemy_health[enemy] * (1 + level/10)
+    enemy_attack_points = enemy_attack[enemy] * (1 + level/10)
     print("You have encountered a " + enemy)
+    print("Your health: " + str(health))
+    print(enemy + " health: " + str(enemy_health_points))
+    print("Your attack: " + str(attack))
+    print(enemy + " attack: " + str(enemy_attack_points))
     battle = input("What would you like to do fight(f) or run(r)?").lower()
 
     if battle == "f":
         health_lost = 0
-        enemy_health_points = enemy_health[enemy] * (1 + level/10)
-        enemy_attack_points = enemy_attack[enemy] * (1 + level/10)
         while enemy_health_points > 0:
-            print("Your health: " + str(health))
-            print(enemy + " health: " + str(enemy_health_points))
-            print("Your attack: " + str(attack))
-            print(enemy + " attack: " + str(enemy_attack_points))
             enemy_health_points -= attack
             health -= enemy_attack_points
             health_lost+= enemy_attack_points
             if health <= 0:
                 print(pyfiglet.figlet_format("GAME OVER", font=font))
+                print(
+            " \U0001F31F Level: " + str(level) +
+            "\n \U0001F5E1 Attack: " + str(attack) +
+            "\n \U0001F6E1 Defense: " + str(defense) +
+            "\n \U0001F4B0 Money: " + str(money)
+            )
                 time.sleep(2)
                 exit()
         print("You have defeated the " + enemy)
